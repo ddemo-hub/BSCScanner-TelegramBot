@@ -35,7 +35,7 @@ def transactionInInterval_commdand(update, context):
     update.message.reply_text(BSCScan.transactionInInterval(int(context.args[0])))
 
 def transactionInLastX_command(update, context):
-    update.message.reply_text(BSCScan.tpsInLatestBlocks(context.args[0]))
+    update.message.reply_text(BSCScan.tpsInLatestBlocks(int(context.args[0])))
 
 #Setting up the Bot
 def main():
