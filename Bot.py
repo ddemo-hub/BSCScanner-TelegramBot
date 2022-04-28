@@ -7,16 +7,15 @@ def start_command(update, context):
     update.message.reply_text("Komut listesini görmek için /yardim komutunu kullanın")
 
 def help_command(update, context):
-    update.message.reply_text("""/yardim => Bu mesaj
-/kaynak => Kaynak kodlarını gör
-/sonBlock => Zincirdeki son bloğun ID'si
-/islemBilgisi (hashKod) => Hash Kodu girilen işlemin bilgileri
-/islemSayisi (blokId) => ID'si verilen bloğun içerdiği işlem sayısı
-/tps (süre) => Verilen sürede gerçekleşen işlem sayısı                           
-""")
+    update.message.reply_text("""/yardim => Bu mesaj                                                    \
+                                 /kaynak => Kaynak kodlarını gör                                        \
+                                 /sonBlock => Zincirdeki son bloğun ID'si                               \
+                                 /islemBilgisi (hashKod) => Hash Kodu girilen işlemin bilgileri         \
+                                 /islemSayisi (blokId) => ID'si verilen bloğun içerdiği işlem sayısı    \
+                                 /tps (süre) => Verilen sürede gerçekleşen işlem sayısı               """)
 
 def sourceCode_command(update, context):
-    update.message.reply_text("github")
+    update.message.reply_text("https://github.com/dem0-0/BSCScannerTelegramBot")
 
 def latestBlock_command(update,context):
     update.message.reply_text(BSCScan.getLatestBlock())
@@ -31,6 +30,7 @@ def transactionInInterval_commdand(update, context):
     update.message.reply_text(BSCScan.transactionInInterval(int(context.args[0])))
 
 
+#Setting up the Bot
 def main():
     updater = Updater(keys.API_KEY, use_context=True)
     disp = updater.dispatcher
