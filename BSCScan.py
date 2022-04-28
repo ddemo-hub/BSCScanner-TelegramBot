@@ -1,3 +1,4 @@
+from cv2 import add
 from web3 import Web3
 import re
 import time
@@ -14,6 +15,12 @@ def isHashValid(hash):
         return True
     else:
         return False
+    
+def getBalance(address):
+    if web3.isAddress(address):
+        return web3.eth.get_balance(address)
+    else:
+        return "Geçersiz Adres"    
     
 def getTransactionInfo(txnHash):
     if (isHashValid(txnHash)):
@@ -65,4 +72,15 @@ def transactionInInterval(timeConstraint):
             numberOfTransactions = numberOfTransactions + web3.eth.get_block_transaction_count(currentBlock)
     
     return numberOfTransactions    
+
+def tpsInLatestBlocks(lastX):
+    currentBlock = web3.eth.blockNumber
+    lastIndex = currentBlock - (lastX - 1)  #Since Block IDs are incremented by 1 for new blocks
+
+    numberOfTransactions = 0
+    while currentBlock >= lastIndex:
+        numberOfTransactions += web3.eth.get_block_transaction_count(currentBlock)
+        currentBlock -= 1
+        
+    return numberOfTransactions / (3 * lastX)
 
