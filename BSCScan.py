@@ -3,13 +3,14 @@ import re
 import time
 import Constants as keys
 
+#Seting up the connection
 web3 = Web3(Web3.HTTPProvider(keys.BSC_NODE_PROVIDER))
 
 def getLatestBlock():
     return web3.eth.blockNumber
 
 def isHashValid(hash):
-    if re.search("^0x([A-Fa-f0-9]{64})$", hash):
+    if re.search("^0x([A-Fa-f0-9]{64})$", hash): #Regex function to check the validity of the hash code
         return True
     else:
         return False
@@ -42,9 +43,11 @@ def getTransactionCount(blockID):
         return "Geçersiz Blok ID"
 
 def transactionInInterval(timeConstraint):
+    #Since Binance Smart Chain has a block time of around 3 seconds, this is a better practice 
     if timeConstraint < 3 or timeConstraint % 3 != 0:
         return "Zaman aralığının 3'ün katı olması önerilir"
     
+    #Waiting for the new block to be validated for a more accurate result
     currentBlock = web3.eth.blockNumber
     while currentBlock == web3.eth.blockNumber:
         pass
@@ -52,6 +55,7 @@ def transactionInInterval(timeConstraint):
     currentBlock = web3.eth.blockNumber 
     numberOfTransactions = web3.eth.get_block_transaction_count(currentBlock)
     
+    #The number of transaction in each block validated within the time contraint is recorded 
     t_end = time.time() + timeConstraint
     while time.time() < t_end:
         if currentBlock == web3.eth.blockNumber:
@@ -61,3 +65,4 @@ def transactionInInterval(timeConstraint):
             numberOfTransactions = numberOfTransactions + web3.eth.get_block_transaction_count(currentBlock)
     
     return numberOfTransactions    
+
