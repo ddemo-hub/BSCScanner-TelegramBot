@@ -9,7 +9,7 @@ def start_command(update, context):
 def help_command(update, context):
     update.message.reply_text("""/yardim => Bu mesaj                                                    \
                                  /kaynak => Kaynak kodlarını gör                                        \
-                                 /sonBlock => Zincirdeki son bloğun ID'si                               \
+                                 /sonBlok => Zincirdeki son bloğun ID'si                                \
                                  /bakiye (adres) => Verilen adresin bakiyesi                            \
                                  /islemBilgisi (hashKod) => Hash Kodu girilen işlemin bilgileri         \
                                  /islemSayisi (blokId) => ID'si verilen bloğun içerdiği işlem sayısı    \
